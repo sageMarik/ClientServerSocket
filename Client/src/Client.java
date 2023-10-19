@@ -14,11 +14,18 @@ public class Client {
                                 new InputStreamReader(
                                         socket.getInputStream()));
 
-        )
-        {
+        ) {
+            System.out.println("Connected to server");
+            String request = "Visaginas";
+            System.out.println("Request: " + request);
+            writer.write(request);
+            writer.newLine();
+            writer.flush();
 
+            String response = reader.readLine();
+            System.out.println("Response: " + response);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

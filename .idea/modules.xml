@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
       <module fileurl="file://$PROJECT_DIR$/ClientServerSocket.iml" filepath="$PROJECT_DIR$/ClientServerSocket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Phone/Phone.iml" filepath="$PROJECT_DIR$/Phone/Phone.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
     </modules>
   </component>

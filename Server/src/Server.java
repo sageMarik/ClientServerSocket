@@ -22,11 +22,13 @@ public class Server {
                 ) {
                     String request = reader.readLine();
                     System.out.println(request);
-                    String response = "HELLO FROM SERVER: " + request.length();
+                    String response = (int) (Math.random() * 30 - 10) + "";
                     System.out.println(response);
                     writer.write(response);
                     writer.newLine();
                     writer.flush();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
 
 
