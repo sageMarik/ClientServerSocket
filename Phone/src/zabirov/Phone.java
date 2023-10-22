@@ -1,20 +1,34 @@
 package zabirov;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Phone {
+public class Phone implements Closeable {
 
     private final Socket socket;
     private final BufferedReader reader;
     private final BufferedWriter writer;
 
 
-    public Phone(Socket socket) {
-        this.socket = socket;
-        this.reader = createReader();
-        this.writer = createWriter();
+    public Phone(String ip, int port) {
+        try {
+            this.socket = new Socket(ip, port);
+            this.reader = createReader();
+            this.writer = createWriter();
+        } catch (IOException e) {
+            throw  new RuntimeException(e);
+        }
+    }
 
+    public Phone(ServerSocket server) {
+        try {
+            this.socket = server.accept();
+            this.reader = createReader();
+            this.writer = createWriter();
+        } catch (IOException e) {
+            throw  new RuntimeException(e);
+        }
     }
 
     public void writeLine(String message) {
@@ -37,19 +51,18 @@ public class Phone {
 
     }
 
-    private BufferedReader createReader() {
-        try {
-            return new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private BufferedReader createReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    private BufferedWriter createWriter() {
-        try {
-            return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private BufferedWriter createWriter() throws IOException {
+        return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    }
+
+    @Override
+    public void close() throws IOException {
+        writer.close();
+        reader.close();
+        socket.close();
     }
 }
